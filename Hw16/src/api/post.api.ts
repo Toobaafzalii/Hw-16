@@ -3,10 +3,12 @@ import { urls } from "./urls"
 
 
 
-export const fetchPostList: fetchPostListType = async () => {
-
+export const fetchPostList: fetchPostListType = async (params ) => {
     const client = generateClient()
-    const response = await client.get<fetchPostResponse>(urls.posts.list)
+    const response = await client.get<fetchPostResponse>(urls.posts.list, {params: {
+        skip: params.skip ,
+        limit: params.limit
+    }})
     return response.data
 }
 

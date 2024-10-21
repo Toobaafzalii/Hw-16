@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { PostPage } from "./pages/posts";
+import { PostPage } from "../pages/posts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MainLayout } from "./layouts/main";
-import { ErrorBoundry } from "./components/erroeBoundry";
-import { PostById } from "./pages/post-by-id";
+import { MainLayout } from "../layouts/main";
+import { ErrorBoundry } from "./erroeBoundry";
+import { fetchByIdLoader, PostById } from "../pages/post-by-id";
 
 export default function App() {
   const queryClient = new QueryClient();
@@ -20,6 +20,7 @@ export default function App() {
         {
           path: "/post-info/:id",
           element: <PostById />,
+          loader: fetchByIdLoader,
         },
         {
           path: "/users",
@@ -30,9 +31,7 @@ export default function App() {
   ]);
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router}>
-        <div>OK</div>
-      </RouterProvider>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }
